@@ -1,0 +1,22 @@
+###
+GET http://localhost:8081/api/cookie HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+###
+POST http://localhost:8081/api/data HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "data": "value"
+}
+
+###
+GET http://localhost:8081/api/data/2 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/query?name=rahmat HTTP/1.1
+Accept: application/json
+Content-Type: application/json

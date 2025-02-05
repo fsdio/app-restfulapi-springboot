@@ -1,0 +1,314 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API Spec To Do List",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.server.{env}/api/v1",
+      "description": "Server description",
+      "variables": {
+        "env": {
+          "enum": [
+            "dev",
+            "staging",
+            "prod"
+          ],
+          "default": "dev"
+        }
+      }
+    }
+  ],
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Endpoint auth"
+    },
+    {
+      "name": "app",
+      "description": "Endpoint app"
+    }
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "examples": {
+              "John Doe": {
+                "value": "John Doe"
+              }
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "examples": {
+              "john@doe.com": {
+                "value": "john@doe.com"
+              }
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "examples": {
+              "password": {
+                "value": "password"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Register",
+            "content": {
+              "application/json": {
+                "example": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "examples": {
+              "john@doe.com": {
+                "value": "john@doe.com"
+              }
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "examples": {
+              "password": {
+                "value": "password"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Login",
+            "content": {
+              "application/json": {
+                "example": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/todos": {
+      "post": {
+        "tags": [
+          "app"
+        ],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "examples": {
+              "Buy groceries": {
+                "value": "Buy groceries"
+              }
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "examples": {
+              "Buy milk, eggs, and bread": {
+                "value": "Buy milk, eggs, and bread"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Add Todos",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": 1,
+                  "title": "Buy groceries",
+                  "description": "Buy milk, eggs, and bread"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Failed Token",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/todos/{id}": {
+      "put": {
+        "tags": [
+          "app"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "nullable": false
+            },
+            "examples": {
+              "1": {
+                "value": 1
+              }
+            }
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "examples": {
+              "Buy groceries": {
+                "value": "Buy groceries"
+              }
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "nullable": false
+            },
+            "examples": {
+              "Buy milk, eggs, bread, and cheese": {
+                "value": "Buy milk, eggs, bread, and cheese"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Add Todos",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": 1,
+                  "title": "Buy groceries",
+                  "description": "Buy milk, eggs, bread, and cheese"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Failed Token",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Forbidden"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "app"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "nullable": false
+            },
+            "examples": {
+              "1": {
+                "value": 1
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success Delete",
+            "content": {
+              "application/json": {
+                "example": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
